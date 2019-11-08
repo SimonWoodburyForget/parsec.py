@@ -299,6 +299,17 @@ class ParsecCharTest(unittest.TestCase):
         self.assertEqual(parser.parse('4'), '4')
         self.assertRaises(ParseError, parser.parse, 'x')
 
+    def test_bytes(self):
+        parser = string(b'x')
+        self.assertEqual(parser.parse(b'x'), b'x')
+        self.assertRaises(ParseError, parser.parse, b'y')
+
+    def test_regex_bytes(self):
+        parser = regex(br'[0-9]')
+        self.assertEqual(parser.parse(b'1'), b'1')
+        self.assertEqual(parser.parse(b'4'), b'4')
+        self.assertRaises(ParseError, parser.parse, b'x')
+
 class ParserGeneratorTest(unittest.TestCase):
     '''Test the implementation of Parser Generator.(generate)'''
     def test_generate_desc(self):

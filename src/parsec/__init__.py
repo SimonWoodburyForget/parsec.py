@@ -118,7 +118,7 @@ class Parser(object):
         '''Parse the longest possible prefix of a given string.
         Return a tuple of the result value and the rest of the string.
         If failed, raise a ParseError. '''
-        if not isinstance(text, str):
+        if not isinstance(text, str) and not isinstance(text, bytes):
             raise TypeError(
                 'Can only parsing string but got {!r}'.format(text))
         res = self(text, 0)
@@ -659,7 +659,7 @@ def string(s):
 
 def regex(exp, flags=0):
     '''Parser according to a regular expression.'''
-    if isinstance(exp, str):
+    if isinstance(exp, str) or isinstance(exp, bytes):
         exp = re.compile(exp, flags)
 
     @Parser
