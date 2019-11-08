@@ -30,7 +30,9 @@ class ParseError(RuntimeError):
         '''Location of `index` in source code `text`.'''
         if index > len(text):
             raise ValueError('Invalid index.')
-        line, last_ln = text.count('\n', 0, index), text.rfind('\n', 0, index)
+        if isinstance(text, str): nl = "\n"
+        if isinstance(text, bytes): nl = b"\n"
+        line, last_ln = text.count(nl, 0, index), text.rfind(nl, 0, index)
         col = index - (last_ln + 1)
         return (line, col)
 
