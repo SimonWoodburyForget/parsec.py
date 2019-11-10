@@ -23,6 +23,8 @@ class TestCSVP(unittest.TestCase):
         self.assertEqual(cell.parse('"cell"'), 'cell')
         self.assertEqual(cell.parse('"ce""ll"'), 'ce"ll')
         self.assertEqual(cell.parse('"large, cell, thing", cell'), "large, cell, thing")
+        self.assertEqual(cell.parse('"ce"ll'), 'ce')
+        self.assertEqual(cell.parse('c"e"ll'), 'c"e"ll')
         
 if __name__ == '__main__':
     unittest.main()
